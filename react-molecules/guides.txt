@@ -1,0 +1,10 @@
+<CssBaseline /> 
+
+// You should place <CssBaseline /> once at the root level of your React project (App.tsx or index.tsx)
+// It helps in:
+
+// Eliminating inconsistencies across browsers by resetting or normalizing styles.
+// Ensuring your app's design starts with a clean slate, following Material Design guidelines.
+
+
+
