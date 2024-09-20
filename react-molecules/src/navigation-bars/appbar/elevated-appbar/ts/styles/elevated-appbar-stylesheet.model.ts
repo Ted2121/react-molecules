@@ -9,6 +9,7 @@ interface AppbarStyles {
     zIndex?: number;
     backgroundColor?: string;
     height?: number;
+    padding?: string;
 }
 
 

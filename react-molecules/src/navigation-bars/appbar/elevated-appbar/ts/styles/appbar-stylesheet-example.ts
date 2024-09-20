@@ -4,7 +4,8 @@ export function elevatedAppBarStyles() : ElevatedAppbarStylesheet {
     return {
         appbar: {
             backgroundColor: '#ae93b8',
-            height: 80
+            height: 80,
+            padding: '30px 20px'
         }
     }
 }

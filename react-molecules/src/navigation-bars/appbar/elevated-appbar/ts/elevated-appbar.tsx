@@ -44,7 +44,8 @@ export default function ElevatedAppBar(props: Props) {
           backgroundColor: styles?.appbar?.backgroundColor ?? 'orange'
         }}>
           <Toolbar sx={{
-            height: styles?.appbar?.height ?? undefined
+            height: styles?.appbar?.height ?? undefined,
+            padding: styles?.appbar?.padding + ' !important' ?? undefined,
           }}>
             <Typography>test1</Typography>
             <Typography>test1</Typography>
