@@ -1,0 +1,8 @@
+/* IMPORTANT NOTE:  
+Material-UI (MUI) components can sometimes override your custom CSS styles
+due to its use of JSS (JavaScript Style Sheets) and the specificity of the styles applied.
+Use !important if your styles are not being applied*/
+
+.appbar-bg-color {
+    background-color: chocolate !important;
+}

@@ -4,12 +4,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Box from '@mui/material/Box';
-import ElevatedAppbarStylesheet from './styles/elevated-appbar-stylesheet.model';
+import ElevatedAppbarStylesheet from './types/elevated-appbar-stylesheet.model';
+import ButtonConfig from './types/button-config.model';
 
 interface Props {
   children?: React.ReactElement<any>;
   pinned?: React.ReactElement<any>;
   styles?: ElevatedAppbarStylesheet;
+  buttons?: Array<ButtonConfig>
 }
 
 function ElevationScroll(props: Props) {
@@ -35,21 +37,18 @@ export default function ElevatedAppBar(props: Props) {
     <>
       {pinned}
       <ElevationScroll {...props}>
-        <AppBar 
-        className={styles?.appbar?.class ?? ''} 
-        sx={{
-          position: styles?.appbar?.position ?? 'sticky',
-          top: styles?.appbar?.top ?? 0,
-          zIndex: styles?.appbar?.zIndex ?? 5000,
-          backgroundColor: styles?.appbar?.backgroundColor ?? 'orange'
-        }}>
+        <AppBar
+          className={styles?.appbar?.class ?? ''}
+          sx={{
+            position: styles?.appbar?.position ?? 'sticky',
+            top: styles?.appbar?.top ?? 0,
+            zIndex: styles?.appbar?.zIndex ?? 5000,
+            backgroundColor: styles?.appbar?.backgroundColor ?? 'orange'
+          }}>
           <Toolbar sx={{
             height: styles?.appbar?.height ?? undefined,
             padding: styles?.appbar?.padding + ' !important' ?? undefined,
           }}>
-            <Typography>test1</Typography>
-            <Typography>test1</Typography>
-            <Typography>test1</Typography>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

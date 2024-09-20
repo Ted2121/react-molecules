@@ -1,8 +1,9 @@
 export default interface ElevatedAppbarStylesheet {
-    appbar?: AppbarStyles
+    appbar?: AppbarStyles;
+    button?: ButtonStyles;
 }
 
-interface AppbarStyles {
+export interface AppbarStyles {
     class?: string;
     position?: string;
     top?: number;
@@ -10,6 +11,10 @@ interface AppbarStyles {
     backgroundColor?: string;
     height?: number;
     padding?: string;
+}
+
+export interface ButtonStyles {
+
 }
 
 

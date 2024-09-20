@@ -12,5 +12,6 @@ npm install @mui/material @emotion/react @emotion/styled
 components:
 
 - appbar:
-    - standard-functions/object-extensions
 
+ElevatedAppbarStylesheet from './types/elevated-appbar-stylesheet.model';
+ButtonConfig from './types/button-config.model';
