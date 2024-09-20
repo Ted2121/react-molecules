@@ -11,9 +11,9 @@ export default interface ButtonConfig {
     variant?: ButtonVariant;
     colorVariant?: ColorVariant;
     sizeVariant?: SizeVariant;
-    
-    icon?: ReactElement; // Any react component that wraps an svg icon (MUI icons, font awesome icons, custom svg icons wrapped in a react component)
+
     isIconButton?: boolean;
+    icon?: ReactElement; // Any react component that wraps an svg icon (MUI icons, font awesome icons, custom svg icons wrapped in a react component)
 
     popover?: Array<ButtonConfig>;
 
@@ -21,6 +21,8 @@ export default interface ButtonConfig {
     onUpload?: Function;
 
     isLoadingButton?: boolean;
+    loadingLabel?: string;
+    customLoadingIndicator?: ReactElement;
     doneLoadingLabel?: string;
     doneLoadingIcon?: ReactElement;
 
