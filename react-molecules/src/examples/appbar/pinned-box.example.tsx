@@ -6,8 +6,8 @@ export default function PinnedBoxExample() {
         <Box
             sx={{
                 width: '100%',
-                padding: '16px',
-                backgroundColor: 'red',
+                // padding: '16px',
+                backgroundColor: '#ebba34',
             }}
         ></Box>
     )

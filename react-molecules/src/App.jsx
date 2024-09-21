@@ -1,9 +1,9 @@
-import { Box, CssBaseline } from "@mui/material"
-import TestPage from "./examples/appbar/text-page.example"
-import ElevatedAppBar from "./navigation-bars/appbar/elevated-appbar/ts/elevated-appbar"
-import PinnedBoxExample from "./navigation-bars/appbar/elevated-appbar/ts/pinned-box-example"
-import { elevatedAppBarStyles } from "./examples/appbar/appbar-stylesheet.example"
-import '../src/examples/appbar/example-appbar-styling-with-class.css'
+import { Box, CssBaseline } from "@mui/material";
+import TestPage from "./examples/appbar/text-page.example";
+import ElevatedAppBar from "./navigation-bars/appbar/elevated-appbar/elevated-appbar.component";
+import PinnedBoxExample from "./examples/appbar/pinned-box.example";
+import { elevatedAppBarStyles } from "./examples/appbar/appbar-stylesheet.example";
+import "./examples/appbar/appbar-styling-with-class.example.css";
 
 function App() {
   return (
