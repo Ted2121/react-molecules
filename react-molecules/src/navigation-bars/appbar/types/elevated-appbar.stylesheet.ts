@@ -1,12 +1,15 @@
+import { AutoSize } from "../../../button/types/button-props.model";
+
 export default interface ElevatedAppbarStylesheet {
     class?: string;
     position?: string;
     top?: number;
     zIndex?: number;
     backgroundColor?: string;
-    height?: number;
+    height?: number | AutoSize;
     padding?: string;
-    hasGap?: boolean;
-    gapHeight?: number;
+    hasSpacingBelow?: boolean;
+    spacingBelow?: number;
+    gap?: number;
 }
 

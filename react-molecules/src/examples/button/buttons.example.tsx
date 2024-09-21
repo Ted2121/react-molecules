@@ -5,6 +5,7 @@ import { getContainedLargeButton, getInPageLinkButton, getInternalLinkButton, ge
 import ButtonProps from '../../button/types/button-props.model';
 import HomeIcon from '@mui/icons-material/Home';
 import LaunchIcon from '@mui/icons-material/Launch';
+import { buttonStyles } from './button-stylesheet.example';
 
 export default function Buttons() {
 
@@ -24,7 +25,8 @@ export default function Buttons() {
         variant: 'contained',
         colorVariant: 'secondary',
         href: '/',
-        startIcon: <HomeIcon/>
+        startIcon: <HomeIcon/>,
+        styles: buttonStyles
     }
 
     return (

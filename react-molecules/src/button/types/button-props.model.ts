@@ -1,4 +1,5 @@
 import { MouseEventHandler, ReactElement } from 'react';
+import ButtonStylesheet from './button.stylesheet';
 
 export default interface ButtonProps {
     labelText: string;
@@ -11,7 +12,6 @@ export default interface ButtonProps {
     variant?: ButtonVariant;
     colorVariant?: ColorVariant;
     sizeVariant?: SizeVariant;
-    minWidth?: number | AutoSize;
 
     isIconButton?: boolean; // can use either startIcon or endIcon (startIcon takes precedence)
     startIcon?: ReactElement; // Any react component that wraps an svg icon (MUI icons, font awesome icons, custom svg icons wrapped in a react component)
@@ -33,6 +33,8 @@ export default interface ButtonProps {
     href?: string;
     target?: HrefTarget;
     removeNoreferrer?: boolean;
+
+    styles?: ButtonStylesheet; 
 }
 
 export type ButtonVariant = 'text' | 'contained' | 'outlined';

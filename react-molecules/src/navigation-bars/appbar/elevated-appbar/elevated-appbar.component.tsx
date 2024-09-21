@@ -38,14 +38,15 @@ export default function ElevatedAppBar(props: AppBarProps) {
           <Toolbar sx={{
             height: styles?.height ?? undefined,
             padding: styles?.padding ? styles?.padding + ' !important' : undefined,
+            gap: styles?.gap ?? undefined
           }}>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
       {/* this Toolbar component is used to make sure the appbar doesn't overlap the content */}
-      {styles?.hasGap && <Toolbar
+      {styles?.hasSpacingBelow && <Toolbar
         sx={{
-          height: styles?.gapHeight ?? (styles?.height ?? undefined)
+          height: styles?.spacingBelow ?? (styles?.height ?? undefined)
         }} />}
     </>
   );

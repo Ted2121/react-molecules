@@ -3,6 +3,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useHandleAnchorClick } from "./hooks/use-handle-anchor-click.hook";
 import { useNavigate } from "react-router-dom";
+import ButtonStylesheet from "./types/button.stylesheet";
 
 export default function ButtonComponent(props: ButtonProps) {
     //#region props
@@ -15,7 +16,6 @@ export default function ButtonComponent(props: ButtonProps) {
         variant,
         colorVariant,
         sizeVariant,
-        minWidth,
         isIconButton,
         startIcon,
         endIcon,
@@ -30,6 +30,7 @@ export default function ButtonComponent(props: ButtonProps) {
         href,
         target,
         removeNoreferrer,
+        styles,
     } = props;
     //#endregion
 
@@ -46,9 +47,9 @@ export default function ButtonComponent(props: ButtonProps) {
             href={href}
             target={target}
             removeNoreferrer={removeNoreferrer}
-            minWidth={minWidth}
             startIcon={startIcon}
             endIcon={endIcon}
+            styles={styles}
         />
     )
 }
@@ -61,13 +62,13 @@ export interface SimpleButtonProps {
     variant?: ButtonVariant;
     colorVariant?: ColorVariant;
     sizeVariant?: SizeVariant;
-    minWidth?: number | AutoSize;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     href?: string;
     target?: HrefTarget;
     removeNoreferrer?: boolean;
     startIcon?: React.ReactElement;
     endIcon?: React.ReactElement;
+    styles?: ButtonStylesheet
 }
 
 export function SimpleButton({ 
@@ -78,13 +79,13 @@ export function SimpleButton({
     variant, 
     colorVariant, 
     sizeVariant,
-    minWidth,
     onClick, 
     href, 
     target, 
     removeNoreferrer,
     startIcon,
     endIcon,
+    styles,
 }: SimpleButtonProps) {
     const navigate = useNavigate();
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
@@ -103,7 +104,7 @@ export function SimpleButton({
             startIcon={startIcon || undefined}
             endIcon={endIcon || undefined}
             sx={{
-                minWidth: minWidth || 100
+                minWidth: styles?.minWidth || 100,
             }}
         >
             {labelText}
