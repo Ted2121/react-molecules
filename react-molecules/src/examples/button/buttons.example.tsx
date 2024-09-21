@@ -26,7 +26,9 @@ export default function Buttons() {
         colorVariant: 'secondary',
         href: '/',
         startIcon: <HomeIcon/>,
-        styles: buttonStyles
+        styles: buttonStyles,
+        tooltipText: 'Home sweet home',
+        tooltipPlacement: 'right'
     }
 
     return (
