@@ -1,4 +1,4 @@
-import ButtonProps, { ButtonVariant, ColorVariant, HrefTarget, SizeVariant } from "./types/button-props.model";
+import ButtonProps, { AutoSize, ButtonVariant, ColorVariant, HrefTarget, SizeVariant } from "./types/button-props.model";
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useHandleAnchorClick } from "./hooks/use-handle-anchor-click.hook";
@@ -15,6 +15,7 @@ export default function ButtonComponent(props: ButtonProps) {
         variant,
         colorVariant,
         sizeVariant,
+        minWidth,
         isIconButton,
         icon,
         isUploadButton,
@@ -44,6 +45,7 @@ export default function ButtonComponent(props: ButtonProps) {
             href={href}
             target={target}
             removeNoreferrer={removeNoreferrer}
+            minWidth={minWidth}
         />
     )
 }
@@ -56,6 +58,7 @@ export interface SimpleButtonProps {
     variant?: ButtonVariant;
     colorVariant?: ColorVariant;
     sizeVariant?: SizeVariant;
+    minWidth?: number | AutoSize;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     href?: string;
     target?: HrefTarget;
@@ -69,11 +72,12 @@ export function SimpleButton({
     hidden, 
     variant, 
     colorVariant, 
-    sizeVariant, 
+    sizeVariant,
+    minWidth,
     onClick, 
     href, 
     target, 
-    removeNoreferrer 
+    removeNoreferrer,
 }: SimpleButtonProps) {
     const navigate = useNavigate();
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
@@ -89,6 +93,9 @@ export function SimpleButton({
             onClick={href ? onAnchorClick : onClick}
             component={href ? 'a' : 'button'}
             href={href || undefined}
+            sx={{
+                minWidth: minWidth || 100
+            }}
         >
             {labelText}
         </Button>

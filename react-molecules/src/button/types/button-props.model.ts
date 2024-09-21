@@ -11,6 +11,7 @@ export default interface ButtonProps {
     variant?: ButtonVariant;
     colorVariant?: ColorVariant;
     sizeVariant?: SizeVariant;
+    minWidth?: number | AutoSize;
 
     isIconButton?: boolean;
     icon?: ReactElement; // Any react component that wraps an svg icon (MUI icons, font awesome icons, custom svg icons wrapped in a react component)
@@ -40,3 +41,5 @@ export type ColorVariant = 'primary' | 'secondary' | 'success' | 'error';
 export type SizeVariant = 'small' | 'medium' | 'large';
 
 export type HrefTarget = '_blank' | '_self' | '_parent' | 'top';
+
+export type AutoSize = 'auto';
