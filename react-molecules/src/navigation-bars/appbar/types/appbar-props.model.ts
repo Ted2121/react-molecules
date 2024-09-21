@@ -1,4 +1,4 @@
-import ElevatedAppbarStylesheet from "./elevated-appbar.stylesheet";
+import ElevatedAppbarStylesheet from './elevated-appbar.stylesheet';
 
 export default interface AppBarProps {
     children?: React.ReactElement<any>;

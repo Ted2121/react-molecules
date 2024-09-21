@@ -5,6 +5,7 @@ import PinnedBoxExample from "./examples/appbar/pinned-box.example";
 import { getElevatedAppBarStyles } from "./examples/appbar/appbar-stylesheet.example";
 import "./examples/appbar/appbar-styling-with-class.example.css";
 import Buttons from "./examples/button/buttons.example";
+import { Router } from "react-router-dom";
 
 function App() {
   return (

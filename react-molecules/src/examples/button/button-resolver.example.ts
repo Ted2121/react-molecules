@@ -1,4 +1,4 @@
-import ButtonProps from "../../button/types/button-props.model";
+import ButtonProps from '../../button/types/button-props.model';
 
 export function getTextButton(labelText: string, tooltipText?: string, id?: string): ButtonProps {
     return {

@@ -2,6 +2,7 @@ import ButtonProps, { ButtonVariant, ColorVariant, HrefTarget, SizeVariant } fro
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useHandleAnchorClick } from "./hooks/use-handle-anchor-click.hook";
+import { useNavigate } from "react-router-dom";
 
 export default function ButtonComponent(props: ButtonProps) {
     //#region props
@@ -74,10 +75,10 @@ export function SimpleButton({
     target, 
     removeNoreferrer 
 }: SimpleButtonProps) {
-    const onAnchorClick = href ? useHandleAnchorClick(href, target, removeNoreferrer) : undefined;
+    const navigate = useNavigate();
+    const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 
     return (
-
         <Button
             id={id}
             disabled={disabled}

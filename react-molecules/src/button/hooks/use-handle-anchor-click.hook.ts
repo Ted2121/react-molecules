@@ -1,9 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction } from "react-router-dom";
 
-export const useHandleAnchorClick = (href: string, target?: string, removeNoreferrer?: boolean) => {
-    const navigate = useNavigate();
+export const useHandleAnchorClick = (navigate: NavigateFunction, href: string, target?: string, removeNoreferrer?: boolean) => {
 
-    const options = removeNoreferrer ? "noopener" : "noopener,noreferrer";
+    const options = removeNoreferrer ? 'noopener' : 'noopener,noreferrer';
 
     const handleAnchorClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
@@ -12,13 +11,13 @@ export const useHandleAnchorClick = (href: string, target?: string, removeNorefe
 
         let finalHref = href;
 
-        if (href.startsWith("www")) {
+        if (href.startsWith('www')) {
             finalHref = `https://${href}`; // Default to https
         }
 
-        if (href.startsWith("http")) {
+        if (href.startsWith('http')) {
             // External link - with changed default from _self to _blank
-            const finalTarget = target || "_blank";
+            const finalTarget = target || '_blank';
             window.open(finalHref, finalTarget, options);
         } else {
             // Internal route (using react-router-dom)

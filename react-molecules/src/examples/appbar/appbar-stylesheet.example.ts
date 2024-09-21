@@ -1,4 +1,4 @@
-import ElevatedAppbarStylesheet from "../../navigation-bars/appbar/types/elevated-appbar.stylesheet";
+import ElevatedAppbarStylesheet from '../../navigation-bars/appbar/types/elevated-appbar.stylesheet';
 
 export function getElevatedAppBarStyles(): ElevatedAppbarStylesheet {
     return {
