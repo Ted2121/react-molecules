@@ -19,6 +19,12 @@ export const useHandleAnchorClick = (navigate: NavigateFunction, href: string, t
             // External link - with changed default from _self to _blank
             const finalTarget = target || '_blank';
             window.open(finalHref, finalTarget, options);
+        } else if (href.startsWith('#')) {
+            // Handle in-page navigation for IDs
+            const element = document.getElementById(href.slice(1));
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         } else {
             // Internal route (using react-router-dom)
             navigate(finalHref);

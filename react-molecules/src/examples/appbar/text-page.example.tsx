@@ -1,12 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Buttons from '../button/buttons.example';
 
 
 export default function TestPage() {
   return (
     <>
-     <Container>
+      <Container>
+        <Buttons></Buttons>
         <Box sx={{ my: 2 }}>
           {[...new Array(28)]
             .map(
@@ -16,6 +18,13 @@ Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
 Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
             )
             .join('\n')}
+        </Box>
+        <Box id='test' sx={{
+          width: '100%',
+          padding: '16px',
+          backgroundColor: 'yellow'
+        }}>
+          Id navigation test
         </Box>
       </Container>
     </>

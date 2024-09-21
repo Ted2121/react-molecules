@@ -19,3 +19,21 @@ export function getContainedLargeButton(labelText: string, tooltipText?: string,
         sizeVariant: 'large',
     }
 }
+
+export function getInternalLinkButton(labelText: string, tooltipText?: string, id?: string): ButtonProps {
+    return {
+        labelText: labelText,
+        id: id,
+        variant: 'contained',
+        href: '/test-contacts'
+    }
+}
+
+export function getInPageLinkButton(labelText: string, tooltipText?: string, id?: string): ButtonProps {
+    return {
+        labelText: labelText,
+        id: id,
+        variant: 'contained',
+        href: '#test'
+    }
+}
