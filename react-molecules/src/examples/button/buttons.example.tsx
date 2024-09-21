@@ -3,6 +3,8 @@ import { Box } from '@mui/material';
 import ButtonComponent from '../../button/button.component';
 import { getContainedLargeButton, getInPageLinkButton, getInternalLinkButton, getTextButton } from './button-resolver.example';
 import ButtonProps from '../../button/types/button-props.model';
+import HomeIcon from '@mui/icons-material/Home';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 export default function Buttons() {
 
@@ -13,6 +15,7 @@ export default function Buttons() {
         labelText: 'external',
         variant: 'outlined',
         href: 'https://github.com',
+        endIcon: <LaunchIcon/>
     }
     const inPageLinkButton = getInPageLinkButton('in page');
     const internalLinkButton = getInternalLinkButton('internal');
@@ -21,6 +24,7 @@ export default function Buttons() {
         variant: 'contained',
         colorVariant: 'secondary',
         href: '/',
+        startIcon: <HomeIcon/>
     }
 
     return (

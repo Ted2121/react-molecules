@@ -2,6 +2,9 @@ libraries:
 
 - material UI:
 npm install @mui/material @emotion/react @emotion/styled
+- material icons
+npm install @mui/icons-material
+
 - react-router-dom
 npm install react-router-dom
 

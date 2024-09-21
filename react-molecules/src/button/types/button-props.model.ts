@@ -13,8 +13,9 @@ export default interface ButtonProps {
     sizeVariant?: SizeVariant;
     minWidth?: number | AutoSize;
 
-    isIconButton?: boolean;
-    icon?: ReactElement; // Any react component that wraps an svg icon (MUI icons, font awesome icons, custom svg icons wrapped in a react component)
+    isIconButton?: boolean; // can use either startIcon or endIcon (startIcon takes precedence)
+    startIcon?: ReactElement; // Any react component that wraps an svg icon (MUI icons, font awesome icons, custom svg icons wrapped in a react component)
+    endIcon?: ReactElement; 
 
     popover?: Array<ButtonProps>;
 

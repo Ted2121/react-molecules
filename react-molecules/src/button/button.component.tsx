@@ -17,7 +17,8 @@ export default function ButtonComponent(props: ButtonProps) {
         sizeVariant,
         minWidth,
         isIconButton,
-        icon,
+        startIcon,
+        endIcon,
         isUploadButton,
         onUpload,
         isLoadingButton,
@@ -46,6 +47,8 @@ export default function ButtonComponent(props: ButtonProps) {
             target={target}
             removeNoreferrer={removeNoreferrer}
             minWidth={minWidth}
+            startIcon={startIcon}
+            endIcon={endIcon}
         />
     )
 }
@@ -63,6 +66,8 @@ export interface SimpleButtonProps {
     href?: string;
     target?: HrefTarget;
     removeNoreferrer?: boolean;
+    startIcon?: React.ReactElement;
+    endIcon?: React.ReactElement;
 }
 
 export function SimpleButton({ 
@@ -78,6 +83,8 @@ export function SimpleButton({
     href, 
     target, 
     removeNoreferrer,
+    startIcon,
+    endIcon,
 }: SimpleButtonProps) {
     const navigate = useNavigate();
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
@@ -93,6 +100,8 @@ export function SimpleButton({
             onClick={href ? onAnchorClick : onClick}
             component={href ? 'a' : 'button'}
             href={href || undefined}
+            startIcon={startIcon || undefined}
+            endIcon={endIcon || undefined}
             sx={{
                 minWidth: minWidth || 100
             }}
