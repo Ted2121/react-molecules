@@ -4,13 +4,15 @@ import Button from '@mui/material/Button';
 import { useHandleAnchorClick } from "./hooks/use-handle-anchor-click.hook";
 import { useNavigate } from "react-router-dom";
 import ButtonStylesheet from "./types/button.stylesheet";
+import { Tooltip } from "@mui/material";
 
 export default function ButtonComponent(props: ButtonProps) {
     //#region props
     const {
         labelText,
-        tooltipText,
         id,
+        tooltipText,
+        tooltipPlacement,
         disabled,
         hidden,
         variant,
@@ -19,6 +21,7 @@ export default function ButtonComponent(props: ButtonProps) {
         isIconButton,
         startIcon,
         endIcon,
+        popover,
         isUploadButton,
         onUpload,
         isLoadingButton,
@@ -32,29 +35,41 @@ export default function ButtonComponent(props: ButtonProps) {
         removeNoreferrer,
         styles,
     } = props;
+
+    const standardButtonProps = {
+        labelText,
+        id,
+        disabled,
+        hidden,
+        variant,
+        colorVariant,
+        sizeVariant,
+        onClick,
+        href,
+        target,
+        removeNoreferrer,
+        startIcon,
+        endIcon,
+        styles,
+    };
     //#endregion
 
     return (
-        <SimpleButton
-            labelText={labelText}
-            id={id}
-            disabled={disabled}
-            hidden={hidden}
-            variant={variant}
-            colorVariant={colorVariant}
-            sizeVariant={sizeVariant}
-            onClick={onClick}
-            href={href}
-            target={target}
-            removeNoreferrer={removeNoreferrer}
-            startIcon={startIcon}
-            endIcon={endIcon}
-            styles={styles}
-        />
+        <>
+        {tooltipText ? (
+            <Tooltip title={tooltipText} placement={tooltipPlacement ?? undefined}>
+                <span> {/* This wrapper ensures the Tooltip works with disabled buttons */}
+                    <StandardButton {...standardButtonProps} />
+                </span>
+            </Tooltip>
+        ) : (
+            <StandardButton {...standardButtonProps} />
+        )}
+    </>
     )
 }
 
-export interface SimpleButtonProps {
+export interface StandardButtonProps {
     labelText: string;
     id?: string;
     disabled?: boolean;
@@ -71,22 +86,22 @@ export interface SimpleButtonProps {
     styles?: ButtonStylesheet
 }
 
-export function SimpleButton({ 
-    labelText, 
-    id, 
-    disabled, 
-    hidden, 
-    variant, 
-    colorVariant, 
+export function StandardButton({
+    labelText,
+    id,
+    disabled,
+    hidden,
+    variant,
+    colorVariant,
     sizeVariant,
-    onClick, 
-    href, 
-    target, 
+    onClick,
+    href,
+    target,
     removeNoreferrer,
     startIcon,
     endIcon,
     styles,
-}: SimpleButtonProps) {
+}: StandardButtonProps) {
     const navigate = useNavigate();
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 

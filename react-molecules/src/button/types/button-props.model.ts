@@ -3,8 +3,10 @@ import ButtonStylesheet from './button.stylesheet';
 
 export default interface ButtonProps {
     labelText: string;
-    tooltipText?: string;
     id?: string;
+
+    tooltipText?: string;
+    tooltipPlacement?: TooltipPlacement;
 
     disabled?: boolean;
     hidden?: boolean;
@@ -46,3 +48,9 @@ export type SizeVariant = 'small' | 'medium' | 'large';
 export type HrefTarget = '_blank' | '_self' | '_parent' | 'top';
 
 export type AutoSize = 'auto';
+
+export type TooltipPlacement = 
+'top-start' | 'top' | 'top-end' 
+| 'right-start' | 'right' | 'right-end' 
+| 'bottom-start' | 'bottom' | 'bottom-end'
+| 'left-start' | 'left' | 'left-end';
