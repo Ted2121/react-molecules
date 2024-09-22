@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { useHandleAnchorClick } from "./hooks/use-handle-anchor-click.hook";
-import { useNavigate } from "react-router-dom";
-import { IconButton, Tooltip } from "@mui/material";
-import ButtonProps, { IconButtonProps, StandardButtonProps } from './types/button-props.model';
+import { useHandleAnchorClick } from './hooks/use-handle-anchor-click.hook';
+import { useNavigate } from 'react-router-dom';
+import { IconButton, styled, Tooltip } from '@mui/material';
+import ButtonProps, { IconButtonProps, StandardButtonProps, UploadButtonProps } from './types/button-props.model';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 export default function ButtonComponent(props: ButtonProps) {
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function ButtonComponent(props: ButtonProps) {
         endIcon,
         popover,
         onUpload,
+        uploadMultiple,
         loadingLabel,
         customLoadingIndicator,
         doneLoadingLabel,
@@ -72,7 +74,8 @@ export default function ButtonComponent(props: ButtonProps) {
     }
 
     const uploadProps = {
-        onUpload
+        onUpload,
+        uploadMultiple,
     }
 
     const loadingProps = {
@@ -95,7 +98,7 @@ export default function ButtonComponent(props: ButtonProps) {
                             popperOptions: {
                                 modifiers: [
                                     {
-                                        name: "preventOverflow",
+                                        name: 'preventOverflow',
                                         options: {
                                             boundary: boundingElement?.current || 'viewport',
                                         }
@@ -104,16 +107,18 @@ export default function ButtonComponent(props: ButtonProps) {
                             }
                         }}>
                         <span> {/* This wrapper ensures the Tooltip works with disabled buttons */}
-                            {isIconButton ? (
+                            {isUploadButton ? (
+                                <UploadButtonComponent {...coreProps} {...uploadProps} {...allExcludingIconProps} isIconButton={isIconButton} />
+                            ) : isIconButton ? (
                                 <IconButtonComponent {...coreProps} {...navigationProps} />
                             ) : (
-                                <StandardButtonComponent {...coreProps} />
+                                <StandardButtonComponent {...coreProps} {...navigationProps} {...allExcludingIconProps} {...popoverProps} />
                             )}
                         </span>
                     </Tooltip>
                 </div>
             ) : (
-                <StandardButtonComponent {...coreProps} />
+                <StandardButtonComponent {...coreProps} {...navigationProps} {...allExcludingIconProps} {...popoverProps} />
             )}
         </>
     )
@@ -122,10 +127,10 @@ export default function ButtonComponent(props: ButtonProps) {
 export function StandardButtonComponent({
     navigate,
     labelText,
+    variant,
     id,
     disabled,
     hidden,
-    variant,
     colorVariant,
     sizeVariant,
     onClick,
@@ -135,6 +140,7 @@ export function StandardButtonComponent({
     startIcon,
     endIcon,
     styles,
+    popover,
 }: StandardButtonProps) {
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
     const buttonSx = {
@@ -157,6 +163,7 @@ export function StandardButtonComponent({
             onClick={href ? onAnchorClick : onClick}
             component={href ? 'a' : 'button'}
             href={href || undefined}
+            role={href ? 'link' : 'button'}
             startIcon={startIcon || undefined}
             endIcon={endIcon || undefined}
             sx={buttonSx}
@@ -195,6 +202,7 @@ export function IconButtonComponent({
             onClick={href ? onAnchorClick : onClick}
             component={href ? 'a' : 'button'}
             href={href || undefined}
+            role={href ? 'link' : 'button'}
             sx={{
                 aspectRatio: styles?.aspectRatio || 1,
                 minWidth: styles?.minWidth || undefined,
@@ -203,5 +211,55 @@ export function IconButtonComponent({
             {startIcon || endIcon}
         </IconButton>
     );
+}
+
+export function UploadButtonComponent({
+    navigate,
+    labelText,
+    variant,
+    id,
+    disabled,
+    hidden,
+    colorVariant,
+    sizeVariant,
+    onClick,
+    href,
+    target,
+    removeNoreferrer,
+    startIcon,
+    endIcon,
+    styles,
+    onUpload,
+    uploadMultiple
+}: UploadButtonProps) {
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+      });
+
+    return (
+        <Button
+            component='label'
+            role='button'
+            variant= {variant ?? undefined}
+            tabIndex={-1}
+            startIcon={startIcon ?? undefined}
+            endIcon={endIcon ?? undefined}
+        >
+            {labelText}
+            <VisuallyHiddenInput
+                type='file'
+                onChange={onUpload}
+                multiple={uploadMultiple}
+            />
+        </Button>
+    )
 }
 

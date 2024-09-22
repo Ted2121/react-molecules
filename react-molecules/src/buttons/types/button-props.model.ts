@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactElement } from 'react';
+import { ChangeEventHandler, MouseEventHandler, ReactElement } from 'react';
 import ButtonStylesheet from './button.stylesheet';
 import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant, TooltipPlacement } from '../../shared/types/component-props-types.model';
 import { NavigateFunction } from 'react-router-dom';
@@ -36,7 +36,8 @@ export default interface ButtonProps {
     popover?: Array<ButtonProps>;
 
     // upload
-    onUpload?: Function;
+    onUpload?: ChangeEventHandler<HTMLInputElement>;
+    uploadMultiple?: boolean;
     
     // loading
     loadingLabel?: string;
@@ -72,7 +73,8 @@ export interface LoadingProps {
 }
 
 export interface UploadProps {
-    onUpload?: Function;
+    onUpload?: ChangeEventHandler<HTMLInputElement>;
+    uploadMultiple?: boolean;
 }
 
 export interface PopoverProps {
@@ -81,7 +83,7 @@ export interface PopoverProps {
 
 export interface AllExcludingIconProps {
     variant?: ButtonVariant;
-    labelText?: string;
+    labelText: string;
 }
 
 export interface TooltipProps {
@@ -101,7 +103,7 @@ type BaseButtonProps = CoreButtonProps & NavigationProps & {
 };
 
 //#region button types
-export type StandardButtonProps = BaseButtonProps & AllExcludingIconProps;
+export type StandardButtonProps = BaseButtonProps & PopoverProps & AllExcludingIconProps;
 
 export type LoadingButtonProps = BaseButtonProps & LoadingProps & AllExcludingIconProps;
 
