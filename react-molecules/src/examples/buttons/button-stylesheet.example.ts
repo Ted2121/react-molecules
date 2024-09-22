@@ -1,4 +1,4 @@
-import ButtonStylesheet from "../../button/types/button.stylesheet";
+import ButtonStylesheet from "../../buttons/types/button.stylesheet";
 
 export const buttonStyles: ButtonStylesheet = {
     // minWidth: 80,

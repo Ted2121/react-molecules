@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
-import ButtonComponent from '../../button/button.component';
+import ButtonComponent from '../../buttons/button.component';
 import { getContainedLargeButton, getInPageLinkButton, getInternalLinkButton, getTextButton } from './button-resolver.example';
-import ButtonProps from '../../button/types/button-props.model';
+import ButtonProps from '../../buttons/types/button-props.model';
 import HomeIcon from '@mui/icons-material/Home';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { buttonStyles } from './button-stylesheet.example';
@@ -33,7 +33,7 @@ export default function Buttons() {
     }
 
     return (
-        <Box sx={{ display: 'flex', gap:2, padding: '10px', height:'500px' }}>
+        <Box sx={{ display: 'flex', gap:2, padding: '10px', height:'100px' }}>
             <ButtonComponent {...homeButton} />
             <ButtonComponent {...textButtonProps} />
             <ButtonComponent {...containedButtonProps} />
