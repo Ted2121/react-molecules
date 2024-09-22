@@ -1,3 +1,4 @@
+import { log } from 'console';
 import ButtonProps from '../../buttons/types/button-props.model';
 
 export function getTextButton(labelText: string, tooltipText?: string, id?: string): ButtonProps {
@@ -13,6 +14,7 @@ export function getContainedLargeButton(labelText: string, tooltipText?: string,
     return {
         labelText: labelText,
         tooltipText: tooltipText,
+        tooltipPlacement: 'bottom',
         id: id,
         variant: 'contained',
         colorVariant: 'secondary',
@@ -36,4 +38,17 @@ export function getInPageLinkButton(labelText: string, tooltipText?: string, id?
         variant: 'contained',
         href: '#test'
     }
+}
+
+export function getUploadButton(labelText: string): ButtonProps {
+    // console.log("test 1")
+    return {
+        labelText: labelText,
+        isUploadButton: true,
+        onUpload: onUpload
+    }
+}
+
+function onUpload() {
+    console.log("test")
 }

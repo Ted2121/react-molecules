@@ -1,4 +1,4 @@
-import { ChangeEventHandler, MouseEventHandler, ReactElement } from 'react';
+import React, { ChangeEventHandler, MouseEventHandler, ReactElement, ReactNode } from 'react';
 import ButtonStylesheet from './button.stylesheet';
 import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant, TooltipPlacement } from '../../shared/types/component-props-types.model';
 import { NavigateFunction } from 'react-router-dom';
@@ -22,6 +22,7 @@ export default interface ButtonProps {
     styles?: ButtonStylesheet; 
     tooltipText?: string;
     tooltipPlacement?: TooltipPlacement;
+    children?: ReactNode;
     
     //navigation
     href?: string;
@@ -57,6 +58,7 @@ export interface CoreButtonProps {
     endIcon?: ReactElement;
     onClick?: MouseEventHandler<HTMLButtonElement>;
     styles?: ButtonStylesheet;
+    children?: ReactNode;
 }
 
 export interface NavigationProps {

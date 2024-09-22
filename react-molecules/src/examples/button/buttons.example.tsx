@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
 import ButtonComponent from '../../buttons/button.component';
-import { getContainedLargeButton, getInPageLinkButton, getInternalLinkButton, getTextButton } from './button-resolver.example';
+import { getContainedLargeButton, getInPageLinkButton, getInternalLinkButton, getTextButton, getUploadButton } from './button-repository.example';
 import ButtonProps from '../../buttons/types/button-props.model';
 import HomeIcon from '@mui/icons-material/Home';
 import LaunchIcon from '@mui/icons-material/Launch';
@@ -30,6 +30,7 @@ export default function Buttons() {
         tooltipPlacement: 'right',
         isIconButton: true,
     }
+    const uploadButton = getUploadButton('Upload');
 
     return (
         <Box sx={{ display: 'flex', gap:2, padding: '10px', height:'100px' }}>
@@ -39,6 +40,7 @@ export default function Buttons() {
             <ButtonComponent {...externalLinkButton} />
             <ButtonComponent {...inPageLinkButton} />
             <ButtonComponent {...internalLinkButton} />
+            <ButtonComponent {...uploadButton} />
         </Box>
     )
 }

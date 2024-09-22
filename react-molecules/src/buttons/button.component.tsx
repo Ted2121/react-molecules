@@ -140,6 +140,7 @@ export function StandardButtonComponent({
     startIcon,
     endIcon,
     styles,
+    children,
     popover,
 }: StandardButtonProps) {
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
@@ -169,6 +170,7 @@ export function StandardButtonComponent({
             sx={buttonSx}
         >
             {labelText}
+            {children}
         </Button>
     )
 }
@@ -187,6 +189,7 @@ export function IconButtonComponent({
     startIcon,
     endIcon,
     styles,
+    children,
 }: IconButtonProps) {
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 
@@ -209,6 +212,7 @@ export function IconButtonComponent({
             }}
         >
             {startIcon || endIcon}
+            {children}
         </IconButton>
     );
 }
@@ -230,7 +234,9 @@ export function UploadButtonComponent({
     endIcon,
     styles,
     onUpload,
-    uploadMultiple
+    uploadMultiple,
+    isIconButton,
+    children,
 }: UploadButtonProps) {
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
@@ -242,24 +248,54 @@ export function UploadButtonComponent({
         left: 0,
         whiteSpace: 'nowrap',
         width: 1,
-      });
+    });
+    const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 
     return (
-        <Button
-            component='label'
-            role='button'
-            variant= {variant ?? undefined}
-            tabIndex={-1}
-            startIcon={startIcon ?? undefined}
-            endIcon={endIcon ?? undefined}
-        >
-            {labelText}
-            <VisuallyHiddenInput
-                type='file'
-                onChange={onUpload}
-                multiple={uploadMultiple}
-            />
-        </Button>
+        <>
+            {isIconButton ? (
+                <IconButtonComponent
+                    navigate={navigate}
+                    id={id}
+                    disabled={disabled}
+                    hidden={hidden}
+                    colorVariant={colorVariant}
+                    sizeVariant={sizeVariant}
+                    // onClick={href ? onAnchorClick : onClick}
+                    href={href || undefined}
+                    target={target}
+                    removeNoreferrer={removeNoreferrer}
+                    startIcon={startIcon}
+                    endIcon={endIcon}
+                    styles={styles}
+                >
+                    <VisuallyHiddenInput
+                        type='file'
+                        onChange={(event) => console.log(event.target.files)}
+                        multiple={uploadMultiple}
+                    />
+                    {children}
+                </IconButtonComponent >
+            ) : (
+                <Button
+                    component='label'
+                    role='button'
+                    variant={variant ?? undefined}
+                    tabIndex={-1}
+                    startIcon={startIcon ?? undefined}
+                    endIcon={endIcon ?? undefined}
+                >
+                    {labelText}
+                    <VisuallyHiddenInput
+                        type='file'
+                        onChange={(event) => console.log(event.target.files)}
+                        multiple={uploadMultiple}
+                    />
+                    {children}
+                </Button>
+
+            )}
+        </>
     )
 }
 
