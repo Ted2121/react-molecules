@@ -105,7 +105,7 @@ export default function ButtonComponent(props: ButtonProps) {
                         }}>
                         <span> {/* This wrapper ensures the Tooltip works with disabled buttons */}
                             {isIconButton ? (
-                                <IconButtonComponent {...coreProps} {...navigationProps} {...uploadProps} isUploadButton={isUploadButton}/>
+                                <IconButtonComponent {...coreProps} {...navigationProps} />
                             ) : (
                                 <StandardButtonComponent {...coreProps} />
                             )}
@@ -180,7 +180,6 @@ export function IconButtonComponent({
     startIcon,
     endIcon,
     styles,
-    isUploadButton
 }: IconButtonProps) {
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 

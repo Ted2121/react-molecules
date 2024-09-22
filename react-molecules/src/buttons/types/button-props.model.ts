@@ -105,9 +105,9 @@ export type StandardButtonProps = BaseButtonProps & AllExcludingIconProps;
 
 export type LoadingButtonProps = BaseButtonProps & LoadingProps & AllExcludingIconProps;
 
-export type UploadButtonProps = BaseButtonProps & UploadProps & AllExcludingIconProps;
+export type UploadButtonProps = BaseButtonProps & UploadProps & AllExcludingIconProps & {
+    isIconButton?: boolean;
+};
 
-export type IconButtonProps = BaseButtonProps & UploadProps & {
-    isUploadButton?: boolean;
-}
+export type IconButtonProps = BaseButtonProps;
 //#endregion
