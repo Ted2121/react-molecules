@@ -1,15 +1,16 @@
 import { MouseEventHandler, ReactElement } from 'react';
 import ButtonStylesheet from './button.stylesheet';
 import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant, TooltipPlacement } from '../../shared/types/component-props-types.model';
+import { NavigateFunction } from 'react-router-dom';
 
 export default interface ButtonProps {
-    // button selection props
+    //#region button props
+    // button selection
     isIconButton?: boolean; // can use either startIcon or endIcon (startIcon takes precedence)
     isUploadButton?: boolean;
     isLoadingButton?: boolean;
-
     
-    // core props
+    // core
     id?: string;
     disabled?: boolean;
     hidden?: boolean;
@@ -27,24 +28,86 @@ export default interface ButtonProps {
     target?: HrefTarget;
     removeNoreferrer?: boolean;
     
-    //standard, upload, loading, popover buttons
+    //standard, upload, loading, popover
     variant?: ButtonVariant;
     labelText: string;
     
-    //popover button
+    //popover
     popover?: Array<ButtonProps>;
 
-    // upload button
+    // upload
     onUpload?: Function;
     
-    // loading button
+    // loading
     loadingLabel?: string;
     customLoadingIndicator?: ReactElement;
     doneLoadingLabel?: string;
     doneLoadingIcon?: ReactElement;
-
-
-
 }
 
+//#region button type building interfaces
+export interface CoreButtonProps {
+    id?: string;
+    disabled?: boolean;
+    hidden?: boolean;
+    colorVariant?: ColorVariant;
+    sizeVariant?: SizeVariant;
+    startIcon?: ReactElement;
+    endIcon?: ReactElement;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    styles?: ButtonStylesheet;
+}
 
+export interface NavigationProps {
+    href?: string;
+    target?: HrefTarget;
+    removeNoreferrer?: boolean;
+}
+
+export interface LoadingProps {
+    loadingLabel?: string;
+    customLoadingIndicator?: ReactElement;
+    doneLoadingLabel?: string;
+    doneLoadingIcon?: ReactElement;
+}
+
+export interface UploadProps {
+    onUpload?: Function;
+}
+
+export interface PopoverProps {
+    popover?: Array<ButtonProps>;
+}
+
+export interface AllExcludingIconProps {
+    variant?: ButtonVariant;
+    labelText?: string;
+}
+
+export interface TooltipProps {
+    tooltipText?: string;
+    tooltipPlacement?: TooltipPlacement;
+}
+
+export interface ButtonSelectionProps {
+    isIconButton?: boolean;
+    isUploadButton?: boolean;
+    isLoadingButton?: boolean;
+}
+//#endregion
+
+type BaseButtonProps = CoreButtonProps & NavigationProps & {
+    navigate: NavigateFunction;
+};
+
+//#region button types
+export type StandardButtonProps = BaseButtonProps & AllExcludingIconProps;
+
+export type LoadingButtonProps = BaseButtonProps & LoadingProps & AllExcludingIconProps;
+
+export type UploadButtonProps = BaseButtonProps & UploadProps & AllExcludingIconProps;
+
+export type IconButtonProps = BaseButtonProps & UploadProps & {
+    isUploadButton?: boolean;
+}
+//#endregion

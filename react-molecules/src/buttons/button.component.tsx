@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useHandleAnchorClick } from "./hooks/use-handle-anchor-click.hook";
-import { NavigateFunction, useNavigate } from "react-router-dom";
-import ButtonStylesheet from "./types/button.stylesheet";
+import { useNavigate } from "react-router-dom";
 import { IconButton, Tooltip } from "@mui/material";
-import ButtonProps from './types/button-props.model';
-import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant, TooltipPlacement } from '../shared/types/component-props-types.model';
+import ButtonProps, { IconButtonProps, StandardButtonProps } from './types/button-props.model';
 
 export default function ButtonComponent(props: ButtonProps) {
     const navigate = useNavigate();
@@ -109,20 +107,19 @@ export default function ButtonComponent(props: ButtonProps) {
                             {isIconButton ? (
                                 <IconButtonComponent {...coreProps} {...navigationProps} {...uploadProps} isUploadButton={isUploadButton}/>
                             ) : (
-                                <BaseButtonComponent {...coreProps} />
+                                <StandardButtonComponent {...coreProps} />
                             )}
                         </span>
                     </Tooltip>
                 </div>
             ) : (
-                <BaseButtonComponent {...coreProps} />
+                <StandardButtonComponent {...coreProps} />
             )}
         </>
     )
 }
 
-
-export function BaseButtonComponent({
+export function StandardButtonComponent({
     navigate,
     labelText,
     id,
@@ -209,54 +206,3 @@ export function IconButtonComponent({
     );
 }
 
-export interface CoreButtonProps {
-    navigate: NavigateFunction;
-    id?: string;
-    disabled?: boolean;
-    hidden?: boolean;
-    colorVariant?: ColorVariant;
-    sizeVariant?: SizeVariant;
-    startIcon?: React.ReactElement;
-    endIcon?: React.ReactElement;
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    styles?: ButtonStylesheet; 
-}
-
-export interface NavigationProps {
-    href?: string;
-    target?: HrefTarget;
-    removeNoreferrer?: boolean;
-}
-
-export interface LoadingProps {
-    loadingLabel?: string;
-    customLoadingIndicator?: React.ReactElement;
-    doneLoadingLabel?: string;
-    doneLoadingIcon?: React.ReactElement;
-}
-
-export interface UploadProps {
-    onUpload?: Function;
-}
-
-export interface PopoverProps {
-    popover?: Array<ButtonProps>;
-}
-
-export interface AllExcludingIconProps {
-    variant?: ButtonVariant;
-    labelText?: string;
-}
-
-
-type BaseButtonProps = CoreButtonProps & NavigationProps;
-
-type StandardButtonProps = BaseButtonProps & AllExcludingIconProps;
-
-type LoadingButtonProps = BaseButtonProps & LoadingProps & AllExcludingIconProps;
-
-type UploadButtonProps = BaseButtonProps & UploadProps & AllExcludingIconProps;
-
-type IconButtonProps = BaseButtonProps & UploadProps & {
-    isUploadButton?: boolean;
-}
