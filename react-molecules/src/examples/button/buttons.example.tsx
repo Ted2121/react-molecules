@@ -28,11 +28,12 @@ export default function Buttons() {
         startIcon: <HomeIcon/>,
         styles: buttonStyles,
         tooltipText: 'Home sweet home',
-        tooltipPlacement: 'right'
+        tooltipPlacement: 'right',
+        isIconButton: true
     }
 
     return (
-        <Box sx={{ display: 'flex', gap:2, padding: '10px' }}>
+        <Box sx={{ display: 'flex', gap:2, padding: '10px', height:'200px' }}>
             <ButtonComponent {...textButtonProps} />
             <ButtonComponent {...containedButtonProps} />
             <ButtonComponent {...externalLinkButton} />

@@ -28,7 +28,7 @@ export default function ElevatedAppBar(props: AppBarProps) {
       {pinned}
       <ElevationScroll {...props}>
         <AppBar
-          className={styles?.class ?? ''}
+          className={styles?.className ?? ''}
           sx={{
             position: styles?.position ?? 'sticky',
             top: styles?.top ?? 0,

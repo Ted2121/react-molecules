@@ -1,5 +1,10 @@
-import { AutoSize } from "./button-props.model";
+import { Size, TextTransform } from "../../shared/types/stylesheet-types.model";
 
 export default interface ButtonStylesheet {
-    minWidth?: number | AutoSize;
+    className?: string;
+    minWidth?: Size;
+    maxHeight?: Size;
+    fontSize?: Size;
+    aspectRatio?: number;
+    textTransform?: TextTransform;
 }

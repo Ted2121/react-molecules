@@ -5,7 +5,7 @@ export function getElevatedAppBarStyles(): ElevatedAppbarStylesheet {
         backgroundColor: '#ae93b8',
         height: 80,
         padding: '30px 20px',
-        class: 'appbar-bg-color',
+        className: 'appbar-bg-color',
         hasSpacingBelow: true,
         // gap: 20
     }
