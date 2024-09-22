@@ -56,12 +56,32 @@ export default function ButtonComponent(props: ButtonProps) {
         styles,
     };
     //#endregion
-
+    const boundingElement = React.useRef<HTMLDivElement>(null);
+const [, forceUpdate] = React.useReducer(x => x + 1, 0);
+React.useLayoutEffect(() => {
+    forceUpdate()
+  }, [])
 
     return (
         <>
             {tooltipText ? (
-                <Tooltip title={tooltipText} placement={tooltipPlacement ?? undefined}>
+                <div ref={boundingElement}>
+
+                <Tooltip 
+                title={tooltipText} 
+                placement={tooltipPlacement ?? undefined}
+                PopperProps={{
+                    popperOptions: {
+                      modifiers: [
+                        {
+                           name: "preventOverflow",
+                           options: {
+                             boundary: boundingElement?.current || 'viewport',
+                           }
+                        }
+                      ]
+                    }
+                  }}>
                     <span> {/* This wrapper ensures the Tooltip works with disabled buttons */}
                         {isIconButton ? (
                             <IconButtonComponent {...standardButtonProps}/>
@@ -70,6 +90,7 @@ export default function ButtonComponent(props: ButtonProps) {
                         )}
                     </span>
                 </Tooltip>
+                </div>
             ) : (
                 <StandardButtonComponent {...standardButtonProps} />
             )}
@@ -174,7 +195,6 @@ export function IconButtonComponent({
             sx={{
                 aspectRatio: styles?.aspectRatio || 1,
                 minWidth: styles?.minWidth || undefined,
-                fontSize: styles?.fontSize || undefined,
             }}
         >
             {startIcon || endIcon}

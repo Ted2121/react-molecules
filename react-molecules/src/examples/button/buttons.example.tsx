@@ -25,21 +25,21 @@ export default function Buttons() {
         variant: 'contained',
         colorVariant: 'secondary',
         href: '/',
-        startIcon: <HomeIcon/>,
+        endIcon: <HomeIcon />, //fontSize must be applied here with sx to modify icon size
         styles: buttonStyles,
         tooltipText: 'Home sweet home',
         tooltipPlacement: 'right',
-        isIconButton: true
+        isIconButton: true,
     }
 
     return (
-        <Box sx={{ display: 'flex', gap:2, padding: '10px', height:'200px' }}>
+        <Box sx={{ display: 'flex', gap:2, padding: '10px', height:'500px' }}>
+            <ButtonComponent {...homeButton} />
             <ButtonComponent {...textButtonProps} />
             <ButtonComponent {...containedButtonProps} />
             <ButtonComponent {...externalLinkButton} />
             <ButtonComponent {...inPageLinkButton} />
             <ButtonComponent {...internalLinkButton} />
-            <ButtonComponent {...homeButton} />
         </Box>
     )
 }
