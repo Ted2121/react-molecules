@@ -8,7 +8,6 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import { buttonStyles } from './button-stylesheet.example';
 
 export default function Buttons() {
-
     const textButtonProps = getTextButton('Text');
     const containedButtonProps = getContainedLargeButton('contained');
     // showcasing creating the button config locally

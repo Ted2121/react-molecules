@@ -3,39 +3,48 @@ import ButtonStylesheet from './button.stylesheet';
 import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant, TooltipPlacement } from '../../shared/types/component-props-types.model';
 
 export default interface ButtonProps {
-    labelText: string;
+    // button selection props
+    isIconButton?: boolean; // can use either startIcon or endIcon (startIcon takes precedence)
+    isUploadButton?: boolean;
+    isLoadingButton?: boolean;
+
+    
+    // core props
     id?: string;
-
-    tooltipText?: string;
-    tooltipPlacement?: TooltipPlacement;
-
     disabled?: boolean;
     hidden?: boolean;
-
-    variant?: ButtonVariant;
     colorVariant?: ColorVariant;
     sizeVariant?: SizeVariant;
-
-    isIconButton?: boolean; // can use either startIcon or endIcon (startIcon takes precedence)
     startIcon?: ReactElement; // Any react component that wraps an svg icon (MUI icons, font awesome icons, custom svg icons wrapped in a react component)
     endIcon?: ReactElement; 
-
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    styles?: ButtonStylesheet; 
+    tooltipText?: string;
+    tooltipPlacement?: TooltipPlacement;
+    
+    //navigation
+    href?: string;
+    target?: HrefTarget;
+    removeNoreferrer?: boolean;
+    
+    //standard, upload, loading, popover buttons
+    variant?: ButtonVariant;
+    labelText: string;
+    
+    //popover button
     popover?: Array<ButtonProps>;
 
-    isUploadButton?: boolean;
+    // upload button
     onUpload?: Function;
-
-    isLoadingButton?: boolean;
+    
+    // loading button
     loadingLabel?: string;
     customLoadingIndicator?: ReactElement;
     doneLoadingLabel?: string;
     doneLoadingIcon?: ReactElement;
 
-    onClick?: MouseEventHandler<HTMLButtonElement>;
 
-    href?: string;
-    target?: HrefTarget;
-    removeNoreferrer?: boolean;
 
-    styles?: ButtonStylesheet; 
 }
+
+

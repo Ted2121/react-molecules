@@ -5,13 +5,24 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import ButtonStylesheet from "./types/button.stylesheet";
 import { IconButton, Tooltip } from "@mui/material";
 import ButtonProps from './types/button-props.model';
-import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant } from '../shared/types/component-props-types.model';
+import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant, TooltipPlacement } from '../shared/types/component-props-types.model';
 
 export default function ButtonComponent(props: ButtonProps) {
+    const navigate = useNavigate();
+    const boundingElement = React.useRef<HTMLDivElement>(null);
+    const [, forceUpdate] = React.useReducer(x => x + 1, 0);
+
+    React.useLayoutEffect(() => {
+        forceUpdate()
+    }, [])
+
     //#region props
     const {
-        labelText,
+        isUploadButton,
+        isLoadingButton,
+        isIconButton,
         id,
+        labelText,
         tooltipText,
         tooltipPlacement,
         disabled,
@@ -19,13 +30,10 @@ export default function ButtonComponent(props: ButtonProps) {
         variant,
         colorVariant,
         sizeVariant,
-        isIconButton,
         startIcon,
         endIcon,
         popover,
-        isUploadButton,
         onUpload,
-        isLoadingButton,
         loadingLabel,
         customLoadingIndicator,
         doneLoadingLabel,
@@ -37,86 +45,84 @@ export default function ButtonComponent(props: ButtonProps) {
         styles,
     } = props;
 
-    const navigate = useNavigate();
-    const standardButtonProps = {
+    const coreProps = {
         navigate,
-        labelText,
         id,
         disabled,
         hidden,
-        variant,
         colorVariant,
         sizeVariant,
-        onClick,
-        href,
-        target,
-        removeNoreferrer,
         startIcon,
         endIcon,
+        onClick,
         styles,
     };
+
+    const navigationProps = {
+        href,
+        target,
+        removeNoreferrer
+    }
+
+    const allExcludingIconProps = {
+        variant,
+        labelText
+    }
+
+    const popoverProps = {
+        popover
+    }
+
+    const uploadProps = {
+        onUpload
+    }
+
+    const loadingProps = {
+        loadingLabel,
+        customLoadingIndicator,
+        doneLoadingLabel,
+        doneLoadingIcon
+    }
     //#endregion
-    const boundingElement = React.useRef<HTMLDivElement>(null);
-const [, forceUpdate] = React.useReducer(x => x + 1, 0);
-React.useLayoutEffect(() => {
-    forceUpdate()
-  }, [])
 
     return (
         <>
             {tooltipText ? (
                 <div ref={boundingElement}>
 
-                <Tooltip 
-                title={tooltipText} 
-                placement={tooltipPlacement ?? undefined}
-                PopperProps={{
-                    popperOptions: {
-                      modifiers: [
-                        {
-                           name: "preventOverflow",
-                           options: {
-                             boundary: boundingElement?.current || 'viewport',
-                           }
-                        }
-                      ]
-                    }
-                  }}>
-                    <span> {/* This wrapper ensures the Tooltip works with disabled buttons */}
-                        {isIconButton ? (
-                            <IconButtonComponent {...standardButtonProps}/>
-                        ) : (
-                            <StandardButtonComponent {...standardButtonProps} />
-                        )}
-                    </span>
-                </Tooltip>
+                    <Tooltip
+                        title={tooltipText}
+                        placement={tooltipPlacement ?? undefined}
+                        PopperProps={{
+                            popperOptions: {
+                                modifiers: [
+                                    {
+                                        name: "preventOverflow",
+                                        options: {
+                                            boundary: boundingElement?.current || 'viewport',
+                                        }
+                                    }
+                                ]
+                            }
+                        }}>
+                        <span> {/* This wrapper ensures the Tooltip works with disabled buttons */}
+                            {isIconButton ? (
+                                <IconButtonComponent {...coreProps} {...navigationProps} {...uploadProps} isUploadButton={isUploadButton}/>
+                            ) : (
+                                <BaseButtonComponent {...coreProps} />
+                            )}
+                        </span>
+                    </Tooltip>
                 </div>
             ) : (
-                <StandardButtonComponent {...standardButtonProps} />
+                <BaseButtonComponent {...coreProps} />
             )}
         </>
     )
 }
 
-export interface StandardButtonProps {
-    navigate: NavigateFunction,
-    labelText?: string;
-    id?: string;
-    disabled?: boolean;
-    hidden?: boolean;
-    variant?: ButtonVariant;
-    colorVariant?: ColorVariant;
-    sizeVariant?: SizeVariant;
-    onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    href?: string;
-    target?: HrefTarget;
-    removeNoreferrer?: boolean;
-    startIcon?: React.ReactElement;
-    endIcon?: React.ReactElement;
-    styles?: ButtonStylesheet
-}
 
-export function StandardButtonComponent({
+export function BaseButtonComponent({
     navigate,
     labelText,
     id,
@@ -177,11 +183,12 @@ export function IconButtonComponent({
     startIcon,
     endIcon,
     styles,
-}: StandardButtonProps) {
+    isUploadButton
+}: IconButtonProps) {
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 
     if (!startIcon && !endIcon) return null;
-    
+
     return (
         <IconButton
             id={id}
@@ -200,4 +207,56 @@ export function IconButtonComponent({
             {startIcon || endIcon}
         </IconButton>
     );
+}
+
+export interface CoreButtonProps {
+    navigate: NavigateFunction;
+    id?: string;
+    disabled?: boolean;
+    hidden?: boolean;
+    colorVariant?: ColorVariant;
+    sizeVariant?: SizeVariant;
+    startIcon?: React.ReactElement;
+    endIcon?: React.ReactElement;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    styles?: ButtonStylesheet; 
+}
+
+export interface NavigationProps {
+    href?: string;
+    target?: HrefTarget;
+    removeNoreferrer?: boolean;
+}
+
+export interface LoadingProps {
+    loadingLabel?: string;
+    customLoadingIndicator?: React.ReactElement;
+    doneLoadingLabel?: string;
+    doneLoadingIcon?: React.ReactElement;
+}
+
+export interface UploadProps {
+    onUpload?: Function;
+}
+
+export interface PopoverProps {
+    popover?: Array<ButtonProps>;
+}
+
+export interface AllExcludingIconProps {
+    variant?: ButtonVariant;
+    labelText?: string;
+}
+
+
+type BaseButtonProps = CoreButtonProps & NavigationProps;
+
+type StandardButtonProps = BaseButtonProps & AllExcludingIconProps;
+
+type LoadingButtonProps = BaseButtonProps & LoadingProps & AllExcludingIconProps;
+
+type UploadButtonProps = BaseButtonProps & UploadProps & AllExcludingIconProps;
+
+type IconButtonProps = BaseButtonProps & UploadProps & {
+    isUploadButton?: boolean;
 }
