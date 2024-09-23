@@ -1,6 +1,7 @@
-import { log } from 'console';
 import ButtonProps from '../../buttons/types/button-props.model';
+import { ChangeEvent } from 'react';
 
+// these functions are just examples - build the buttons you need using the exposed properties on ButtonProps
 export function getTextButton(labelText: string, tooltipText?: string, id?: string): ButtonProps {
     return {
         labelText: labelText,
@@ -40,15 +41,16 @@ export function getInPageLinkButton(labelText: string, tooltipText?: string, id?
     }
 }
 
-export function getUploadButton(labelText: string): ButtonProps {
-    // console.log("test 1")
+export function getUploadButton(
+    labelText: string,
+    handleUpload: (event: ChangeEvent<HTMLInputElement>) => void,
+    uploadMultiple?: boolean): ButtonProps {
     return {
         labelText: labelText,
         isUploadButton: true,
-        onUpload: onUpload
+        onUpload: handleUpload,
+        uploadMultiple: uploadMultiple
     }
 }
 
-function onUpload() {
-    console.log("test")
-}
+

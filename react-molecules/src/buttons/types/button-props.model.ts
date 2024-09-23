@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, MouseEventHandler, ReactElement, ReactNode } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, MouseEventHandler, ReactElement, ReactNode } from 'react';
 import ButtonStylesheet from './button.stylesheet';
 import { ButtonVariant, ColorVariant, HrefTarget, SizeVariant, TooltipPlacement } from '../../shared/types/component-props-types.model';
 import { NavigateFunction } from 'react-router-dom';
@@ -37,7 +37,7 @@ export default interface ButtonProps {
     popover?: Array<ButtonProps>;
 
     // upload
-    onUpload?: ChangeEventHandler<HTMLInputElement>;
+    onUpload?: (event: ChangeEvent<HTMLInputElement>) => void;
     uploadMultiple?: boolean;
     
     // loading
@@ -75,7 +75,7 @@ export interface LoadingProps {
 }
 
 export interface UploadProps {
-    onUpload?: ChangeEventHandler<HTMLInputElement>;
+    onUpload?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     uploadMultiple?: boolean;
 }
 

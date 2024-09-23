@@ -11,15 +11,15 @@ export default function Buttons() {
     const textButtonProps = getTextButton('Text');
     const containedButtonProps = getContainedLargeButton('contained');
     // showcasing creating the button config locally
-    const externalLinkButton : ButtonProps = {
+    const externalLinkButton: ButtonProps = {
         labelText: 'external',
         variant: 'outlined',
         href: 'https://github.com',
-        endIcon: <LaunchIcon/>
+        endIcon: <LaunchIcon />
     }
     const inPageLinkButton = getInPageLinkButton('in page');
     const internalLinkButton = getInternalLinkButton('internal');
-    const homeButton : ButtonProps = {
+    const homeButton: ButtonProps = {
         labelText: 'home',
         variant: 'contained',
         colorVariant: 'secondary',
@@ -30,10 +30,20 @@ export default function Buttons() {
         tooltipPlacement: 'right',
         isIconButton: true,
     }
-    const uploadButton = getUploadButton('Upload');
+    const uploadButton = getUploadButton('Upload', handleFileUpload, true);
+
+    function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+        const files = event.target.files;
+        if (files) {
+            Array.from(files).forEach((file) => {
+                // Handle each file here, e.g., upload it or display its name
+                console.log(file.name);
+            });
+        }
+    }
 
     return (
-        <Box sx={{ display: 'flex', gap:2, padding: '10px', height:'100px' }}>
+        <Box sx={{ display: 'flex', gap: 2, padding: '10px', height: '100px' }}>
             <ButtonComponent {...homeButton} />
             <ButtonComponent {...textButtonProps} />
             <ButtonComponent {...containedButtonProps} />

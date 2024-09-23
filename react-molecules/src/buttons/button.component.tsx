@@ -2,7 +2,8 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { useHandleAnchorClick } from './hooks/use-handle-anchor-click.hook';
 import { useNavigate } from 'react-router-dom';
-import { IconButton, styled, Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import ButtonProps, { IconButtonProps, StandardButtonProps, UploadButtonProps } from './types/button-props.model';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
@@ -90,7 +91,6 @@ export default function ButtonComponent(props: ButtonProps) {
         <>
             {tooltipText ? (
                 <div ref={boundingElement}>
-
                     <Tooltip
                         title={tooltipText}
                         placement={tooltipPlacement ?? undefined}
@@ -118,7 +118,15 @@ export default function ButtonComponent(props: ButtonProps) {
                     </Tooltip>
                 </div>
             ) : (
-                <StandardButtonComponent {...coreProps} {...navigationProps} {...allExcludingIconProps} {...popoverProps} />
+                <>
+                    {isUploadButton ? (
+                        <UploadButtonComponent {...coreProps} {...uploadProps} {...allExcludingIconProps} isIconButton={isIconButton} />
+                    ) : isIconButton ? (
+                        <IconButtonComponent {...coreProps} {...navigationProps} />
+                    ) : (
+                        <StandardButtonComponent {...coreProps} {...navigationProps} {...allExcludingIconProps} {...popoverProps} />
+                    )}
+                </>
             )}
         </>
     )
@@ -217,6 +225,19 @@ export function IconButtonComponent({
     );
 }
 
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
+
+
 export function UploadButtonComponent({
     navigate,
     labelText,
@@ -238,18 +259,14 @@ export function UploadButtonComponent({
     isIconButton,
     children,
 }: UploadButtonProps) {
-    const VisuallyHiddenInput = styled('input')({
-        clip: 'rect(0 0 0 0)',
-        clipPath: 'inset(50%)',
-        height: 1,
-        overflow: 'hidden',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        whiteSpace: 'nowrap',
-        width: 1,
-    });
-    const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
+    const buttonSx = {
+        aspectRatio: styles?.aspectRatio || undefined,
+        minWidth: styles?.minWidth || undefined,
+        maxHeight: styles?.maxHeight || 40,
+        fontSize: styles?.fontSize || undefined,
+        textTransform: styles?.textTransform || undefined,
+    };
+    // const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 
     return (
         <>
@@ -284,11 +301,12 @@ export function UploadButtonComponent({
                     tabIndex={-1}
                     startIcon={startIcon ?? undefined}
                     endIcon={endIcon ?? undefined}
+                    sx={buttonSx}
                 >
                     {labelText}
                     <VisuallyHiddenInput
                         type='file'
-                        onChange={(event) => console.log(event.target.files)}
+                        onChange={onUpload}
                         multiple={uploadMultiple}
                     />
                     {children}
