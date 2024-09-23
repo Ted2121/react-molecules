@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box } from '@mui/material';
 import ButtonComponent from '../../buttons/button.component';
-import { getContainedLargeButton, getInPageLinkButton, getInternalLinkButton, getTextButton, getUploadButton } from './button-repository.example';
+import { getClickActionButton, getContainedLargeButton, getInPageLinkButton, getInternalLinkButton, getTextButton, getUploadButton } from './button-repository.example';
 import ButtonProps from '../../buttons/types/button-props.model';
 import HomeIcon from '@mui/icons-material/Home';
 import LaunchIcon from '@mui/icons-material/Launch';
@@ -42,6 +42,12 @@ export default function Buttons() {
         }
     }
 
+    const clickActionButton = getClickActionButton('Action', handleClick)
+
+    function handleClick() {
+        alert('Button was clicked');
+    }
+
     return (
         <Box sx={{ display: 'flex', gap: 2, padding: '10px', height: '100px' }}>
             <ButtonComponent {...homeButton} />
@@ -51,6 +57,7 @@ export default function Buttons() {
             <ButtonComponent {...inPageLinkButton} />
             <ButtonComponent {...internalLinkButton} />
             <ButtonComponent {...uploadButton} />
+            <ButtonComponent {...clickActionButton} />
         </Box>
     )
 }

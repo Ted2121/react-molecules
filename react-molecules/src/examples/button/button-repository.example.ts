@@ -1,5 +1,5 @@
 import ButtonProps from '../../buttons/types/button-props.model';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, MouseEventHandler } from 'react';
 
 // these functions are just examples - build the buttons you need using the exposed properties on ButtonProps
 export function getTextButton(labelText: string, tooltipText?: string, id?: string): ButtonProps {
@@ -50,6 +50,13 @@ export function getUploadButton(
         isUploadButton: true,
         onUpload: handleUpload,
         uploadMultiple: uploadMultiple
+    }
+}
+
+export function getClickActionButton(labelText: string, handleClick: MouseEventHandler<HTMLButtonElement>) {
+    return {
+        labelText: labelText,
+        onClick: handleClick
     }
 }
 
