@@ -183,7 +183,7 @@ export function StandardButtonComponent({
             onClick={href ? onAnchorClick : onClick}
             component={href ? 'a' : component || 'button'}
             href={href || undefined}
-            role={href ? 'link' : 'button'}
+            role={href ? 'link' : role || 'button'}
             startIcon={startIcon || undefined}
             endIcon={endIcon || undefined}
             sx={buttonSx}
@@ -240,7 +240,7 @@ export function IconButtonComponent({
             onClick={href ? onAnchorClick : onClick}
             component={href ? 'a' : component || 'button'}
             href={href || undefined}
-            role={href ? 'link' : 'button'}
+            role={href ? 'link' : role || 'button'}
             sx={buttonSx}
         >
             {startIcon || endIcon}
@@ -281,9 +281,6 @@ export function UploadButtonComponent({
     uploadMultiple,
     isIconButton,
     children,
-    component,
-    role,
-    tabIndex,
 }: UploadButtonProps) {
     const buttonSx = {
         aspectRatio: styles?.aspectRatio || undefined,
@@ -304,7 +301,7 @@ export function UploadButtonComponent({
                     id={id}
                     component='label'
                     role='button'
-                    tabIndex={-1}
+                    tabIndex={-1} // must be -1 so that focus is set on the upload input
                     disabled={disabled}
                     hidden={hidden}
                     colorVariant={colorVariant}
@@ -327,7 +324,7 @@ export function UploadButtonComponent({
                 <Button
                     component='label'
                     role='button'
-                    tabIndex={-1}
+                    tabIndex={-1} // must be -1 so that focus is set on the upload input
                     variant={variant ?? undefined}
                     startIcon={startIcon ?? undefined}
                     endIcon={endIcon ?? undefined}
@@ -341,7 +338,6 @@ export function UploadButtonComponent({
                     />
                     {children}
                 </Button>
-
             )}
         </>
     )
