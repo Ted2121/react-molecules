@@ -91,6 +91,16 @@ export default function ButtonComponent(props: ButtonProps) {
     }
     //#endregion
 
+    const buttonSelection = (
+        isUploadButton ? (
+            <UploadButtonComponent {...coreProps} {...uploadProps} {...allExcludingIconProps} isIconButton={isIconButton} />
+        ) : isIconButton ? (
+            <IconButtonComponent {...coreProps} {...navigationProps} />
+        ) : (
+            <StandardButtonComponent {...coreProps} {...navigationProps} {...allExcludingIconProps} {...popoverProps} />
+        )
+    )
+
     return (
         <>
             {tooltipText ? (
@@ -111,25 +121,13 @@ export default function ButtonComponent(props: ButtonProps) {
                             }
                         }}>
                         <span> {/* This wrapper ensures the Tooltip works with disabled buttons */}
-                            {isUploadButton ? (
-                                <UploadButtonComponent {...coreProps} {...uploadProps} {...allExcludingIconProps} isIconButton={isIconButton} />
-                            ) : isIconButton ? (
-                                <IconButtonComponent {...coreProps} {...navigationProps} />
-                            ) : (
-                                <StandardButtonComponent {...coreProps} {...navigationProps} {...allExcludingIconProps} {...popoverProps} />
-                            )}
+                            {buttonSelection}
                         </span>
                     </Tooltip>
                 </div>
             ) : (
                 <>
-                    {isUploadButton ? (
-                        <UploadButtonComponent {...coreProps} {...uploadProps} {...allExcludingIconProps} isIconButton={isIconButton} />
-                    ) : isIconButton ? (
-                        <IconButtonComponent {...coreProps} {...navigationProps} />
-                    ) : (
-                        <StandardButtonComponent {...coreProps} {...navigationProps} {...allExcludingIconProps} {...popoverProps} />
-                    )}
+                    {buttonSelection}
                 </>
             )}
         </>
