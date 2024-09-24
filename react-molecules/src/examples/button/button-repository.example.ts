@@ -1,5 +1,7 @@
 import ButtonProps from '../../buttons/types/button-props.model';
-import { ChangeEvent, MouseEventHandler } from 'react';
+import { ChangeEvent, MouseEventHandler, ReactElement } from 'react';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { buttonStyles } from './button-stylesheet.example';
 
 // these functions are just examples - build the buttons you need using the exposed properties on ButtonProps
 export function getTextButton(labelText: string, tooltipText?: string, id?: string): ButtonProps {
@@ -44,12 +46,17 @@ export function getInPageLinkButton(labelText: string, tooltipText?: string, id?
 export function getUploadButton(
     labelText: string,
     handleUpload: (event: ChangeEvent<HTMLInputElement>) => void,
-    uploadMultiple?: boolean): ButtonProps {
+    startIcon?: ReactElement,
+    uploadMultiple?: boolean,
+): ButtonProps {
     return {
         labelText: labelText,
         isUploadButton: true,
         onUpload: handleUpload,
-        uploadMultiple: uploadMultiple
+        uploadMultiple: uploadMultiple,
+        isIconButton: true,
+        startIcon: startIcon,
+        styles: buttonStyles,
     }
 }
 

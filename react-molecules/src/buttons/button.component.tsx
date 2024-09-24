@@ -217,6 +217,10 @@ export function IconButtonComponent({
             sx={{
                 aspectRatio: styles?.aspectRatio || 1,
                 minWidth: styles?.minWidth || undefined,
+                maxWidth: styles?.maxWidth || undefined,
+                height: styles?.height || undefined,
+                width: styles?.width || undefined,
+                alignSelf: styles?.alignSelf || undefined
             }}
         >
             {startIcon || endIcon}
@@ -247,7 +251,6 @@ export function UploadButtonComponent({
     hidden,
     colorVariant,
     sizeVariant,
-    onClick,
     href,
     target,
     removeNoreferrer,
@@ -266,7 +269,6 @@ export function UploadButtonComponent({
         fontSize: styles?.fontSize || undefined,
         textTransform: styles?.textTransform || undefined,
     };
-    // const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 
     return (
         <>
@@ -278,7 +280,6 @@ export function UploadButtonComponent({
                     hidden={hidden}
                     colorVariant={colorVariant}
                     sizeVariant={sizeVariant}
-                    // onClick={href ? onAnchorClick : onClick}
                     href={href || undefined}
                     target={target}
                     removeNoreferrer={removeNoreferrer}

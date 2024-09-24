@@ -6,6 +6,7 @@ import ButtonProps from '../../buttons/types/button-props.model';
 import HomeIcon from '@mui/icons-material/Home';
 import LaunchIcon from '@mui/icons-material/Launch';
 import { buttonStyles } from './button-stylesheet.example';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 export default function Buttons() {
     const textButtonProps = getTextButton('Text');
@@ -26,11 +27,11 @@ export default function Buttons() {
         href: '/',
         endIcon: <HomeIcon />, //fontSize must be applied here with sx to modify icon size
         styles: buttonStyles,
-        tooltipText: 'Home sweet home',
-        tooltipPlacement: 'right',
+        // tooltipText: 'Home sweet home',
+        // tooltipPlacement: 'right',
         isIconButton: true,
     }
-    const uploadButton = getUploadButton('Upload', handleFileUpload, true);
+    const uploadButton = getUploadButton('Upload', handleFileUpload, <FileUploadIcon/>, true);
 
     function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
         const files = event.target.files;
@@ -49,7 +50,7 @@ export default function Buttons() {
     }
 
     return (
-        <Box sx={{ display: 'flex', gap: 2, padding: '10px', height: '100px' }}>
+        <Box sx={{ display: 'flex', gap: 2, padding: '10px',height: '100px'  }}>
             <ButtonComponent {...homeButton} />
             <ButtonComponent {...textButtonProps} />
             <ButtonComponent {...containedButtonProps} />
