@@ -12,4 +12,5 @@ export default interface ButtonStylesheet {
     aspectRatio?: number;
     textTransform?: TextTransform;
     alignSelf?: AlignSelf;
+    hoverBackgroundColor: string;
 }

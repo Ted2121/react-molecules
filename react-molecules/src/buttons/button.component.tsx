@@ -44,6 +44,8 @@ export default function ButtonComponent(props: ButtonProps) {
         target,
         removeNoreferrer,
         styles,
+        component,
+        tabIndex,
     } = props;
 
     const coreProps = {
@@ -57,6 +59,8 @@ export default function ButtonComponent(props: ButtonProps) {
         endIcon,
         onClick,
         styles,
+        component,
+        tabIndex,
     };
 
     const navigationProps = {
@@ -150,6 +154,9 @@ export function StandardButtonComponent({
     styles,
     children,
     popover,
+    component,
+    role,
+    tabIndex,
 }: StandardButtonProps) {
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
     const buttonSx = {
@@ -158,19 +165,23 @@ export function StandardButtonComponent({
         maxHeight: styles?.maxHeight || 40,
         fontSize: styles?.fontSize || undefined,
         textTransform: styles?.textTransform || undefined,
+        '&:hover': {
+            backgroundColor: styles?.hoverBackgroundColor || undefined,
+        }
     };
 
     return (
         <Button
             id={id}
             className={styles?.className ?? ''}
+            tabIndex={tabIndex}
             disabled={disabled}
             hidden={hidden}
             variant={variant}
             color={colorVariant}
             size={sizeVariant}
             onClick={href ? onAnchorClick : onClick}
-            component={href ? 'a' : 'button'}
+            component={href ? 'a' : component || 'button'}
             href={href || undefined}
             role={href ? 'link' : 'button'}
             startIcon={startIcon || undefined}
@@ -198,30 +209,39 @@ export function IconButtonComponent({
     endIcon,
     styles,
     children,
+    component,
+    role,
+    tabIndex,
 }: IconButtonProps) {
     const onAnchorClick = href ? useHandleAnchorClick(navigate, href, target, removeNoreferrer) : undefined;
 
     if (!startIcon && !endIcon) return null;
+
+    const buttonSx = {
+        aspectRatio: styles?.aspectRatio || 1,
+        minWidth: styles?.minWidth || undefined,
+        maxWidth: styles?.maxWidth || undefined,
+        height: styles?.height || undefined,
+        width: styles?.width || undefined,
+        alignSelf: styles?.alignSelf || undefined,
+        '&:hover': {
+            backgroundColor: styles?.hoverBackgroundColor || undefined,
+        }
+    }
 
     return (
         <IconButton
             id={id}
             disabled={disabled}
             hidden={hidden}
+            tabIndex={tabIndex}
             color={colorVariant}
             size={sizeVariant}
             onClick={href ? onAnchorClick : onClick}
-            component={href ? 'a' : 'button'}
+            component={href ? 'a' : component || 'button'}
             href={href || undefined}
             role={href ? 'link' : 'button'}
-            sx={{
-                aspectRatio: styles?.aspectRatio || 1,
-                minWidth: styles?.minWidth || undefined,
-                maxWidth: styles?.maxWidth || undefined,
-                height: styles?.height || undefined,
-                width: styles?.width || undefined,
-                alignSelf: styles?.alignSelf || undefined
-            }}
+            sx={buttonSx}
         >
             {startIcon || endIcon}
             {children}
@@ -261,6 +281,9 @@ export function UploadButtonComponent({
     uploadMultiple,
     isIconButton,
     children,
+    component,
+    role,
+    tabIndex,
 }: UploadButtonProps) {
     const buttonSx = {
         aspectRatio: styles?.aspectRatio || undefined,
@@ -268,6 +291,9 @@ export function UploadButtonComponent({
         maxHeight: styles?.maxHeight || 40,
         fontSize: styles?.fontSize || undefined,
         textTransform: styles?.textTransform || undefined,
+        '&:hover': {
+            backgroundColor: styles?.hoverBackgroundColor || undefined,
+        }
     };
 
     return (
@@ -276,6 +302,9 @@ export function UploadButtonComponent({
                 <IconButtonComponent
                     navigate={navigate}
                     id={id}
+                    component='label'
+                    role='button'
+                    tabIndex={-1}
                     disabled={disabled}
                     hidden={hidden}
                     colorVariant={colorVariant}
@@ -289,7 +318,7 @@ export function UploadButtonComponent({
                 >
                     <VisuallyHiddenInput
                         type='file'
-                        onChange={(event) => console.log(event.target.files)}
+                        onChange={onUpload}
                         multiple={uploadMultiple}
                     />
                     {children}
@@ -298,8 +327,8 @@ export function UploadButtonComponent({
                 <Button
                     component='label'
                     role='button'
-                    variant={variant ?? undefined}
                     tabIndex={-1}
+                    variant={variant ?? undefined}
                     startIcon={startIcon ?? undefined}
                     endIcon={endIcon ?? undefined}
                     sx={buttonSx}
